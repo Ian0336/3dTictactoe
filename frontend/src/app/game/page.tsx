@@ -11,9 +11,7 @@ import Chessboard from '../_components/Chessboard';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { SocketContext } from '../_components/socket';
-import { pre } from 'framer-motion/client';
 import Loading from './loading';
-import { is } from '@react-three/fiber/dist/declarations/src/core/utils';
 
 
 
@@ -115,10 +113,12 @@ export default function Home() {
         setAnimatedChess(prev => roomInfo.animatedChess);
         // setChessList 
         let allChess = roomInfo.allChess;
-        let player1Chess = allChess.filter((chess: any) => chess.player === 0).map((chess: any) => [chess.row, chess.col]);
-        let player2Chess = allChess.filter((chess: any) => chess.player === 1).map((chess: any) => [chess.row, chess.col]);
-        setPlayer1({...player1, chessList: player1Chess});
-        setPlayer2({...player2, chessList: player2Chess});
+        if (allChess){
+          let player1Chess = allChess.filter((chess: any) => chess.player === 0).map((chess: any) => [chess.row, chess.col]);
+          let player2Chess = allChess.filter((chess: any) => chess.player === 1).map((chess: any) => [chess.row, chess.col]);
+          setPlayer1({...player1, chessList: player1Chess});
+          setPlayer2({...player2, chessList: player2Chess});
+        }
         setRoomPlayers(roomInfo.players);
 
         setIsInit(true);
